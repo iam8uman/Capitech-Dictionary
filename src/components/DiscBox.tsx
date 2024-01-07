@@ -12,7 +12,7 @@ const DiscBox: React.FC<DiscBoxProps> = ({ searchResult }) => {
   const [activePartOfSpeech, setActivePartOfSpeech] = useState<string>("noun");
 
   // Check if searchResult is defined and has elements
-  const phonetic = searchResult && searchResult.length > 0 ? searchResult[0].phonetic : "";
+  const firstWord = searchResult && searchResult.length > 0 ? searchResult[0].word : "";
   const meanings = searchResult && searchResult.length > 0 ? searchResult[0].meanings : [];
 
   const handlePartOfSpeechClick = (partOfSpeech: string): void => {
@@ -28,8 +28,8 @@ const DiscBox: React.FC<DiscBoxProps> = ({ searchResult }) => {
             <PlayCircleIcon className="scale-150" />
           </Link>
         </div>
-        {/* phonetics section lai lekhna paro yeha */}
-        <p className="text-lg m-2 p-2">{phonetic}</p>
+        {/* Text section */}
+        <p className="text-lg m-2 p-2">{firstWord}</p>
       </div>
       {/* Content section */}
       <div className="p-4">
