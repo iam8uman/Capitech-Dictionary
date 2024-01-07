@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import { PlayCircleIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -7,7 +9,15 @@ interface DiscBoxProps {
 }
 
 const DiscBox: React.FC<DiscBoxProps> = ({ searchResult }) => {
-  const firstWord = searchResult && searchResult.length > 0 ? searchResult[0].word : "";
+  const [activePartOfSpeech, setActivePartOfSpeech] = useState<string>("noun");
+
+  // Check if searchResult is defined and has elements
+  const phonetic = searchResult && searchResult.length > 0 ? searchResult[0].phonetic : "";
+  const meanings = searchResult && searchResult.length > 0 ? searchResult[0].meanings : [];
+
+  const handlePartOfSpeechClick = (partOfSpeech: string): void => {
+    setActivePartOfSpeech(partOfSpeech);
+  };
 
   return (
     <div className="mx-4 md:mx-10 lg:mx-20 xl:mx-40 rounded-md border border-blue-500 bg-white min-h-80 mb-8 md:mb-12 lg:mb-16">
@@ -18,44 +28,59 @@ const DiscBox: React.FC<DiscBoxProps> = ({ searchResult }) => {
             <PlayCircleIcon className="scale-150" />
           </Link>
         </div>
-        {/* Text section */}
-        <p className="text-lg m-2 p-2">{firstWord}</p>
+        {/* phonetics section lai lekhna paro yeha */}
+        <p className="text-lg m-2 p-2">{phonetic}</p>
       </div>
       {/* Content section */}
       <div className="p-4">
         <h1 className="text-lg flex gap-2 md:gap-4 font-semibold">
           {/* Noun button */}
-          <Link href="/play">
-            <button className="bg-black text-white px-3 py-1 rounded-lg">
-              noun
-            </button>
-          </Link>
+          <button
+            className={`bg-black text-white px-3 py-1 rounded-lg ${
+              activePartOfSpeech === "noun" ? "bg-opacity-80" : ""
+            }`}
+            onClick={() => handlePartOfSpeechClick("noun")}
+          >
+            noun
+          </button>
           {/* Verb button */}
-          <Link href="/play">
-            <button className="bg-slate-300 text-black px-3 py-1 rounded-lg">
-              verb
-            </button>
-          </Link>
+          <button
+            className={`bg-slate-300 text-black px-3 py-1 rounded-lg ${
+              activePartOfSpeech === "verb" ? "bg-opacity-80" : ""
+            }`}
+            onClick={() => handlePartOfSpeechClick("verb")}
+          >
+            verb
+          </button>
         </h1>
-        {/* Description */}
-        <div className="mt-3 text-md text-black px-3">
-          <ol className="list-outside list-decimal">
-            <li>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Perspiciatis non voluptatem assumenda.
-            </li>
-            <li>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              officia dolorem deserunt distinctio dolorum quos fuga doloribus
-              sint. Praesentium minima aspernatur dolor ipsum!
-            </li>
-            <li>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae
-              officia dolorem deserunt distinctio dolorum quos fuga doloribus
-              sint. Praesentium minima aspernatur dolor ipsum!
-            </li>
-          </ol>
-        </div>
+        {/* Iterate over meanings and definitions */}
+        {meanings.map((meaning: any, index: number) => (
+          <div
+            key={index}
+            className={`mt-3 text-md text-black px-3 ${
+              activePartOfSpeech === meaning.partOfSpeech ? "" : "hidden"
+            }`}
+          >
+            <h2 className="text-xl font-semibold">{meaning.partOfSpeech}</h2>
+            <ol className="list-outside list-decimal">
+              {meaning.definitions.map((definition: any, subIndex: number) => (
+                <li key={subIndex}>
+                  {definition.definition}
+                  {definition.synonyms && definition.synonyms.length > 0 && (
+                    <div>
+                      <strong>Synonyms:</strong> {definition.synonyms.join(", ")}
+                    </div>
+                  )}
+                  {definition.antonyms && definition.antonyms.length > 0 && (
+                    <div>
+                      <strong>Antonyms:</strong> {definition.antonyms.join(", ")}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
         {/* Read button */}
         <button
           type="button"
