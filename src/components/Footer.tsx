@@ -8,7 +8,7 @@ export default function Footer() {
     <section className="absolute bottom-0 w-full bg-blue-400 py-8 rounded-lg flex justify-between">
       <div className="container relative z-10  px-4 mx-36">
         <div className="-m-8 flex flex-wrap items-center justify-between">
-          <Link href='/history'>
+          <Link href='history'>
           <Image
             src="/logo2x.png"
             height={120}
