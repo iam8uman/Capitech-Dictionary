@@ -7,14 +7,14 @@ export default function Footer() {
   return (
     <section className="w-full bg-blue-400 py-8 rounded-lg flex flex-col items-center justify-center md:flex-row md:gap-96">
       {/* Logo */}
-      <div className="mb-4 md:mb-0">
+      <div className="mb-4 md:mb-0 ">
         <Link href="/history">
           <Image
             src="/logo2x.png"
             height={120}
             width={120}
             alt="logo"
-            className="relative bottom-20"
+            className="relative bottom-20 md:right-40"
           />
         </Link>
       </div>
