@@ -29,7 +29,7 @@ export default function Footer() {
 
         </div>
         <div className="text flex flex-col pr-16">
-          <div className="header text-2xl font-bold p-2 flex text-slate-200 drop-shadow-md hover:drop-shadow-xl">
+          <div className="header text-2xl font-bold p-2 flex text-slate-200 drop-shadow-md hover:drop-shadow-xl hover:shadow-black">
             Capitech.Nepal
           </div>
           <p className="text-sm inline-block px-6">Follow Us On Twitter for more updates!</p>
