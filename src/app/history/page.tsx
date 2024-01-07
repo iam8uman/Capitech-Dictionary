@@ -5,11 +5,11 @@ import React from "react";
 import DiscBox from "@/components/DiscBox";
 
 const History: React.FC = () => {
-  // Assume you have a history of search results
+  // Assume we have a history of search results(yo chai assume nai garne aba)
   const searchHistory: any[] = [
     // Sample search result data
     {
-      word: "Example",
+      word: "Suman",
       meanings: [
         {
           partOfSpeech: "noun",
@@ -30,8 +30,9 @@ const History: React.FC = () => {
     <div className="mt-10 flex flex-col">
       {/* Iterate over search history and display DiscBox for each result */}
       {searchHistory.map((result, index) => (
-        <div key={index} className="text-lg font-semibold py-5 px-40">
-          Word: {result.word}
+        <div key={index} className="text-lg  font-semibold py-5">
+          <div className="text-2xl font-mono px-40">Search History <br />
+          </div>
           <DiscBox searchResult={[result]} />
         </div>
       ))}
